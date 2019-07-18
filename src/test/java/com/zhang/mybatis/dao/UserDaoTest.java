@@ -55,6 +55,7 @@ public class UserDaoTest {
         user.setStatus(0);
         int num = userDao.insert(user);
         System.out.println(num);
+
         Assert.assertEquals(1, num);
     }
 
