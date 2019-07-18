@@ -7,6 +7,10 @@
         select * from user where id = #{id}
     </select>
 
+    <select id="findByNameAndPassword" parameterType="string" resultType="com.zhang.mybatis.entity.User">
+        select * from user where  password = #{password} and name = #{userName}
+    </select>
+
     <insert id="insert" parameterType="com.zhang.mybatis.entity.User">
         insert into user (name,password,age,status) values (#{user.name},#{user.password},#{user.age},#{user.status})
     </insert>

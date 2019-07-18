@@ -3,7 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
+    <!--
+    // 1. properties
+    // 2. setting
+    // 3. typeAliases
+    // 4. plugins
+    // 5. objectFactory
+    // 6. objectWrapperFactory
+    // 7. reflectorFactory
+    // 8. environments
+    // 9. databaseIdProvider
+    // 10. typeHandlers
+    // 11. mappers
+    -->
     <!-- 指定properties配置文件， 我这里面配置的是数据库相关 -->
     <properties resource="dbConfig.properties"></properties>
 
@@ -11,7 +23,13 @@
     <settings>
         <setting name="logImpl" value="LOG4J"/>
     </settings>
-
+    <!--    <typeHandlers>-->
+    <!--        <typeHandler handler=""-->
+    <!--    </typeHandlers>-->
+    <plugins>
+        <plugin interceptor="com.zhang.mybatis.interceptor.ExamplePlugin"></plugin>
+        <plugin interceptor="com.zhang.mybatis.interceptor.ExamplePlugin2"></plugin>
+    </plugins>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>

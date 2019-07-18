@@ -33,6 +33,16 @@ public class UserDaoTest {
         UserDao userDao = getSqlSession().getMapper(UserDao.class);
         User user = userDao.findById(4);
         Assert.assertNotNull("没有数据", user);
+        System.out.println(user.toString());
+    }
+
+    @Test
+    public void findByNameAndPassword() throws IOException {
+        SqlSession sqlSession = getSqlSession();
+        UserDao userDao = sqlSession.getMapper(UserDao.class);
+        User user = userDao.findByNameAndPassword("zhangsan", "zhangsan2");
+        Assert.assertNotNull("没有数据", user);
+        System.out.println(user.toString());
     }
 
     @Test
