@@ -5,7 +5,7 @@
 姓名|string|""|YES
 年龄|int|20|YES
 
-<div style="background-color:red">
+<div style="color:red">
  颜色不同
 </div>
 
