@@ -5,6 +5,10 @@
 姓名|string|""|YES
 年龄|int|20|YES
 
+<div style="background-color:red">
+ 颜色不同
+</div>
+
 <table>
   <tr>
     <th>序号</th>
