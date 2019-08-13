@@ -35,6 +35,7 @@ import java.util.regex.Matcher;
         )
 })
 public class ExamplePlugin2 implements Interceptor {
+    @Override
     public Object intercept(Invocation invocation) throws Throwable {
         System.out.println("interceptor.." + invocation.getMethod());
 
@@ -118,11 +119,11 @@ public class ExamplePlugin2 implements Interceptor {
         }
         return sql;
     }
-
+    @Override
     public Object plugin(Object target) {
         return Plugin.wrap(target, this);
     }
-
+    @Override
     public void setProperties(Properties properties) {
 
     }

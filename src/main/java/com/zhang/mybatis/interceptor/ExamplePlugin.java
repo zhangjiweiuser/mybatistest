@@ -22,12 +22,13 @@ import java.util.Properties;
         )
 })
 public class ExamplePlugin implements Interceptor {
+    @Override
     public Object intercept(Invocation invocation) throws Throwable {
         System.out.println("interceptor.." + invocation.getMethod());
 
         Object target = invocation.getTarget();
         System.out.println("当前拦截到的对象：" + target);
-        if(target instanceof RoutingStatementHandler){
+        if (target instanceof RoutingStatementHandler) {
             RoutingStatementHandler handler = (RoutingStatementHandler) target;
             BoundSql boundSql = handler.getBoundSql();
             System.out.println(boundSql.getSql());
@@ -37,10 +38,12 @@ public class ExamplePlugin implements Interceptor {
         return invocation.proceed();
     }
 
+    @Override
     public Object plugin(Object target) {
         return Plugin.wrap(target, this);
     }
 
+    @Override
     public void setProperties(Properties properties) {
 
     }

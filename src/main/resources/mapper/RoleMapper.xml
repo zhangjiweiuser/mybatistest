@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhang.mybatis.dao.RoleDao">
+
+    <resultMap id="baseResult" type="com.zhang.mybatis.entity.Role">
+        <result column="num" property="num"/>
+        <result column="age" property="age"/>
+        <result column="avg_age" property="avgage" javaType="BigDecimal"/>
+    </resultMap>
+
+    <select id="getAvg" resultType="map">
+        select @ages:=sum(age*num),
+			   @nums:=sum(num) ,
+			   sum(num) num,
+			   sum(age*num) age,
+			   @ages/2 as avg_age from role
+    </select>
+
+
+</mapper>

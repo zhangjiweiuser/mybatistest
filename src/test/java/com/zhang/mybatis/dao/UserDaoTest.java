@@ -1,5 +1,6 @@
 package com.zhang.mybatis.dao;
 
+import com.google.common.collect.Lists;
 import com.zhang.mybatis.entity.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -66,6 +67,15 @@ public class UserDaoTest {
         List<User> users = userDao.findAllUsers();
         Assert.assertNotNull("用户数据不能为空", users);
         for (User user : users) {
+            System.out.println(user.toString());
+        }
+    }
+
+    @Test
+    public void findByIds() throws IOException {
+        UserDao userDao = getSqlSession().getMapper(UserDao.class);
+        List<User> userLists = userDao.findByIds(Lists.newArrayList(4, 5));
+        for (User user : userLists) {
             System.out.println(user.toString());
         }
     }
