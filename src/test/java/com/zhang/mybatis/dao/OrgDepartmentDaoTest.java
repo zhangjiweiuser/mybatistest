@@ -5,13 +5,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.google.common.collect.Lists;
 import com.zhang.mybatis.entity.OrgDepartment;
-import com.zhang.mybatis.entity.User;
+import com.zhang.mybatis.entity.OrgTree;
 import com.zhang.mybatis.util.GuavaUtil;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -34,6 +34,23 @@ public class OrgDepartmentDaoTest {
         return sqlSession;
     }
 
+    private static OrgTree getTree2(OrgDepartment parent, List<OrgDepartment> list) {
+        OrgTree tree = new OrgTree();
+        tree.setId(parent.getId());
+        tree.setName(parent.getOrgName());
+        tree.setType(parent.getType());
+        List<OrgDepartment> child = getChilds(parent.getId(), list);
+        if (CollectionUtils.isNotEmpty(child)) {
+            List<OrgTree> childs = Lists.newArrayList();
+            for (OrgDepartment department : child) {
+                OrgTree t = getTree2(department, list);
+                childs.add(t);
+            }
+            tree.setChildren(childs);
+        }
+        return tree;
+    }
+
     @Test
     public void findAll() throws IOException {
         OrgDepartmentDao orgDepartmentDao = getSqlSession().getMapper(OrgDepartmentDao.class);
@@ -41,19 +58,19 @@ public class OrgDepartmentDaoTest {
 //        System.out.println(JSONObject.toJSONString(list, SerializerFeature.PrettyFormat));
         JSONArray result = GuavaUtil.getValue("tree");
         if (null != result) {
-            System.out.println("aa:"+JSONObject.toJSONString(result));
-        }else{
+            System.out.println("aa:" + JSONObject.toJSONString(result));
+        } else {
             System.out.println("为空");
         }
         result = getTree(0, list);
         GuavaUtil.putValue("tree", result);
         result = GuavaUtil.getValue("tree");
         if (null != result) {
-            System.out.println("aa:"+JSONObject.toJSONString(result));
+            System.out.println("aa:" + JSONObject.toJSONString(result));
         }
         result = GuavaUtil.getValue("tree");
         if (null != result) {
-            System.out.println("aa:"+JSONObject.toJSONString(result));
+            System.out.println("aa:" + JSONObject.toJSONString(result));
         }
     }
 
@@ -72,6 +89,15 @@ public class OrgDepartmentDaoTest {
             tree.fluentAdd(result);
         }
         return tree;
+    }
+
+    @Test
+    public void findAll2() throws IOException {
+        OrgDepartmentDao orgDepartmentDao = getSqlSession().getMapper(OrgDepartmentDao.class);
+        List<OrgDepartment> list = orgDepartmentDao.getAll();
+        OrgDepartment parent = list.stream().filter(o -> o.getId() == 1).findFirst().get();
+        OrgTree tree = getTree2(parent, list);
+        System.out.println(JSONObject.toJSONString(tree, SerializerFeature.PrettyFormat));
     }
 
     private static List<OrgDepartment> getChilds(int id, List<OrgDepartment> list) {

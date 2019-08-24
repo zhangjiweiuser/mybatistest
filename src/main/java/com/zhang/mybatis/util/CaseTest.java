@@ -1,7 +1,5 @@
 package com.zhang.mybatis.util;
 
-import java.util.Calendar;
-
 /**
  * @ClassName CaseTest
  * @Author zhangjiwei
@@ -14,8 +12,6 @@ public class CaseTest {
         System.out.println(getStr(2));
         System.out.println(getStr(4));
         System.out.println(getStr(7));
-        Calendar end = Calendar.getInstance();
-        end.set();
     }
 
     private static String getStr(int num) {
