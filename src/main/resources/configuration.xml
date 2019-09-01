@@ -23,9 +23,10 @@
     <settings>
         <setting name="logImpl" value="LOG4J"/>
     </settings>
-    <!--    <typeHandlers>-->
-    <!--        <typeHandler handler=""-->
-    <!--    </typeHandlers>-->
+    <typeHandlers>
+        <typeHandler handler="com.zhang.mybatis.handler.EnumOrderStatusHandler"
+                     javaType="com.zhang.mybatis.entity.OrderStatusEnum"/>
+    </typeHandlers>
     <plugins>
         <plugin interceptor="com.zhang.mybatis.interceptor.ExamplePlugin"></plugin>
         <plugin interceptor="com.zhang.mybatis.interceptor.ExamplePlugin2"></plugin>
@@ -51,6 +52,7 @@
         <mapper resource="mapper/userMapper.xml"/>
         <mapper resource="mapper/roleMapper.xml"/>
         <mapper resource="mapper/OrgDepartmentMapper.xml"/>
+        <mapper resource="mapper/orderInfoMapper.xml"/>
     </mappers>
 
 </configuration>
